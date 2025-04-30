@@ -2,8 +2,8 @@ pipeline {
     agent any
 
     tools {
-        maven 'Maven_3.8.7'
-        jdk 'JDK_17'
+        maven 'Maven'
+        jdk 'JDK'
     }
 
     stages {
@@ -16,6 +16,13 @@ pipeline {
         stage('Build WAR') {
             steps {
                 sh 'mvn clean package'
+            }
+        }
+        
+        stage('Setup Tomcat') {
+            steps {
+                // Make sure setup-tomcat.sh exists and is executable
+                sh 'chmod +x setup-tomcat.sh && ./setup-tomcat.sh'
             }
         }
 
